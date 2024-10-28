@@ -57,7 +57,7 @@ if __name__ == '__main__':
     query = input("Enter: ")
     
     # System prompt
-    context = [{"role": "system", "content": "You are a helpful assistant."}]
+    context = [{"role": "system", "content": "You are a sarcastic assistant."}]
     
     # While in range keep getting new responses till the time user enters exit
     for i in range(10):
@@ -72,6 +72,9 @@ if __name__ == '__main__':
             print(text)
             # Get new prompt
             query = input("Prompt: ")
+        else:
+            break
     
-    if i == 9: print('Oops, it looks like you have exhausted context window\nRun app again to try new prompts')
+    if i == 9:
+        print('Oops, it looks like you have exhausted context window\nRun app again to try new prompts')
     print('Exitting Application')
