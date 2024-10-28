@@ -1,50 +1,44 @@
-#### Overview
-In this assignment, you will get hands-on experience on working with an API which could help you to
-provide interesting interactive experiences for your end-user. Your task is to create a simple "Hello World" 
-application that utilizes the API to demonstrate a basic understanding of how to interact with the API.
+# HCI Mini Project 2 Documntation
 
-#### Objectives
-- Gain familiarity with using APIs
-- Develop a basic application that calls the API to perform a simple task.
-- Understand the process of integrating an external API into your code.
+* The API Used in this application is the OpenAI API
+* The Model used is gpt-3.5-turbo
 
-#### Task Details
 
-1. API Selection
-   - Choose a generative AI API for this task. This could be OpenAI's API, or any other API you plan to integrate into your project.
-   - Ensure that you have access to the API, including any necessary keys or authentication methods.
+### API Integration Steps
 
-2. Application Development
-   - Develop a small application in a programming language of your choice that makes a call to the selected API.
-   - Your application should send a simple request to the API and display the response.
+* Login to website [OpenAI Developer API Keys](https://platform.openai.com/api-keys)
+* Select the green button "Create new secret key" from the top right corner of the screen if you don't already have an api key
+* Follow the instructions o screen to generate an API Key
+* Make sure to copy and save the API Key someplace secure before closing the popup
+* Now you have the API Key and you can use it in the application.
 
-3. "Hello World" Generative Task
-   - Use the API to generate a creative "Hello World" message. This could be a short text that showcases the capabilities of the API.
+### Setting API Key
 
-4. Documentation
-   - Document your code and the steps you took to integrate the API.
-   - Include instructions on how to run your application and any necessary setup.
+* In your terminal cd into the directory containing the file **app.py**
+* Execute the following shell commands in your terminal
+```bash
+# Create .env file
+touch .env
 
-5. Reflection
-   - Write a brief reflection on your experience. 
-Discuss any challenges you faced, what you learned about generative AI, and how you might apply 
-this knowledge in your future projects.
+# Set API Key
+echo OPENAI_API_KEY=<API-KEY> > .env
+```
+* Alternatively, you can skip this step and directly enter the API key after running **app.py**
 
-#### Submission Requirements
-- Code Files: Submit all the code files used in your project.
-- Documentation: Include a README file with instructions and your reflection.
-- Format: Submit your files in a zip folder or provide a link to a GitHub repository.
+### Running the Application
 
-#### Evaluation Criteria
--API Integration (40%): Successfully integrating and making calls to the chosen generative AI API.
-- Functionality (30%): The application runs smoothly and performs the intended "Hello World" generative task.
-- Code Quality and Documentation (10%): Clean, well-commented code and thorough documentation.
-- Reflection (20%): Insightful reflection on the learning experience and potential applications.
+* Run the following commands to run the application in the terminal
+* Make sure to cd into the **MiniProject_2** directory
+```bash
+# Create virtual environment
+python -m venv ./venv 
 
-#### Suggested APIs
-- OpenAI API: https://openai.com/api/
-- Hugging Face API: https://huggingface.co/inference-api
-- Hugging Face Documentation: https://huggingface.co/docs
-- Any other generative AI API you prefer.
+# Activate Virtual Environemt
+source venv/bin/activate
 
-Happy coding!
+# Install Requirements
+pip install -r requirements.txt 
+
+# Run App
+python app.py
+```
