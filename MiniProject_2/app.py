@@ -4,10 +4,10 @@ from openai import OpenAI
 from dotenv import load_dotenv
 
 # Funaction to call ChatGPT Api with query
-def llm_call(query, client):
+def llm_call(context, client):
     response = client.chat.completions.create(
         model='gpt-3.5-turbo',
-        messages=[{"role":"user","content":query}]
+        messages=context
     )
             
     return(response.choices[0].message.content)
@@ -22,24 +22,20 @@ def get_client():
         
         try:
             # Get llm_call response
-            text = llm_call(query, client)
-            
+            text = llm_call([{"role": "user", "content": query}], client)
             # Print Generated Hello World Message
             print(text)
-            
             # Return client if llm_call successful
             return client
         except:
+            # If API Key set is not valid, as if user wants to continue
             print('OpenAI API Key Set is not valid.')
             if 'n' == input('Do you want to try again (Default: Yes)? [y/n]\n'):
-                print('Entered Invalid API Key 3 Times\nExitting Application')
+                print('Exitting Application')
                 exit()
             else:
+                # Get new API Key
                 os.environ['OPENAI_API_KEY'] = getpass("Enter new OpenAI API key: \n")
-    
-    
-
-
     
 if __name__ == '__main__':
     # Load Open AI API Key from .env if present
@@ -57,11 +53,25 @@ if __name__ == '__main__':
     client = get_client()
     
     # Run ChatGPT
-    print('Enter your question for ChatGPT\nType exit to close Application')
+    print('Enter your question for ChatGPT\nRemember you can only ask 10 questions at a time\nType exit to close Application')
     query = input("Enter: ")
-    while query != 'exit':
-        text = llm_call(query, client)
-        print(text)
-        query = input("Prompt: ")
     
+    # System prompt
+    context = [{"role": "system", "content": "You are a helpful assistant."}]
+    
+    # While in range keep getting new responses till the time user enters exit
+    for i in range(10):
+        if query != 'exit':
+            # Add query as user context
+            context.append({"role": "user", "content": query})
+            # Make llm call
+            text = llm_call(context, client)
+            # Add llm response to context
+            context.append({"role": "assistant", "content": text})
+            # Output llm response
+            print(text)
+            # Get new prompt
+            query = input("Prompt: ")
+    
+    if i == 9: print('Oops, it looks like you have exhausted context window\nRun app again to try new prompts')
     print('Exitting Application')
